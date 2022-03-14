@@ -9,7 +9,9 @@ import ListComponent from "./ListComponent";
 
 const style = {
   recipe: {
+    margin: "auto",
     textAlign: "center",
+    maxWidth: "500px",
   },
   recipeHeading: {
     fontSize: "25px",
@@ -27,7 +29,7 @@ const Recipe = () => {
     getDetails(id);
     // eslint-disable-next-line
   }, []);
-  console.log(recipe);
+
   const getDetails = async (rId) => {
     axios
       .get(`https://localhost:5001/Recipe/${rId}`, {
@@ -53,7 +55,7 @@ const Recipe = () => {
         <Typography sx={style.recipeHeading}>{recipe?.description}</Typography>
         <Divider></Divider>
       </Box>
-      <Box>
+      <Box sx={{ marginBottom: "20px" }}>
         <Typography>Ingredients:</Typography>
         {recipe.recipeIngredients &&
           recipe.recipeIngredients.map((item, i) => {

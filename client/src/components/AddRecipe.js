@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { japActions } from "../store";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   Box,
@@ -22,7 +23,8 @@ const style = {
 const AddRecipe = () => {
   const dispatch = useDispatch();
   const token = sessionStorage.getItem("token");
-  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const [message, setMessage] = useState("");
   const [units, setUnits] = useState([]);
   const [prepareIngredients, setPrepareIngredients] = useState([]);
   const [input, setInput] = useState({
@@ -60,7 +62,12 @@ const AddRecipe = () => {
           Authorization: `bearer ${token}`,
         },
       })
-      .catch();
+      .then(() => {
+        setMessage("Created successfully");
+        setTimeout(() => {
+          navigate("/categories");
+        }, 500);
+      });
   }
 
   function onChangeCategory(e) {
@@ -185,6 +192,7 @@ const AddRecipe = () => {
             </Box>
           );
         })}
+      <Typography sx={{ color: "green" }}>{message}</Typography>
       {input.recipeIngredients.length > 0 && (
         <Button fullWidth variant="contained" type="submit">
           Create recipe
