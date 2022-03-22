@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Server.Common;
+using System.Collections.Generic;
 
 namespace server.Models
 {
-    public class Recipe
+    public class Recipe : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }    
         public string Description { get; set; }
         public int CategoryId { get; set; }

@@ -33,13 +33,13 @@ namespace server.Datas
                 );
 
             modelBuilder.Entity<Ingredient>().HasData(
-                 new Ingredient { Id = 1, Name = "Oil", Price = 3, Quantity = 1, Unit = UnitEnum.l },
-                 new Ingredient { Id = 2, Name = "Flour", Price = 30, Quantity = 25, Unit = UnitEnum.kg },
-                 new Ingredient { Id = 3, Name = "Sugar", Price = 3, Quantity = 1, Unit = UnitEnum.kg},
-                 new Ingredient { Id = 4, Name = "Salt", Price = 2, Quantity = 1, Unit = UnitEnum.kg},
-                 new Ingredient { Id = 5, Name = "Olive Oil", Price = 20, Quantity = 1, Unit = UnitEnum.l},
-                 new Ingredient { Id = 6, Name = "Egg", Price = 9, Quantity = 30, Unit = UnitEnum.pcs},
-                 new Ingredient { Id = 7, Name = "Chicken meat", Price = 10, Quantity = 1, Unit = UnitEnum.kg}
+                 new Ingredient { Id = 1, Name = "Oil", PurchasePrice= 3, PurchaseQuantity = 1, PurchaseUnit = UnitEnum.l },
+                 new Ingredient { Id = 2, Name = "Flour", PurchasePrice = 30, PurchaseQuantity = 25, PurchaseUnit = UnitEnum.kg },
+                 new Ingredient { Id = 3, Name = "Sugar", PurchasePrice = 3, PurchaseQuantity = 1, PurchaseUnit = UnitEnum.kg},
+                 new Ingredient { Id = 4, Name = "Salt", PurchasePrice = 2, PurchaseQuantity = 1, PurchaseUnit = UnitEnum.kg},
+                 new Ingredient { Id = 5, Name = "Olive Oil", PurchasePrice = 20, PurchaseQuantity = 1, PurchaseUnit = UnitEnum.l},
+                 new Ingredient { Id = 6, Name = "Egg", PurchasePrice = 9, PurchaseQuantity = 30, PurchaseUnit = UnitEnum.pcs},
+                 new Ingredient { Id = 7, Name = "Chicken meat", PurchasePrice = 10, PurchaseQuantity = 1, PurchaseUnit = UnitEnum.kg}
                 );
 
             modelBuilder.Entity<RecipeIngredients>().HasKey(r => new { r.IngredientId, r.RecipeId });

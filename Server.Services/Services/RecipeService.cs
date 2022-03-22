@@ -140,11 +140,11 @@ namespace server.Services
             var cost = recipe.RecipeIngredients.Select(i => new GetTotalCostDto
 
             {
-                BaseQuantity = QtyConvert(i.Ingredient.Quantity, i.Ingredient.Unit),
+                BaseQuantity = QtyConvert(i.Ingredient.PurchaseQuantity, i.Ingredient.PurchaseUnit),
 
                 UsedQuantity = QtyConvert(i.Quantity, i.Unit),
 
-                Price = i.Ingredient.Price
+                Price = i.Ingredient.PurchasePrice
 
             });
 
@@ -156,11 +156,11 @@ namespace server.Services
         {
             var cost = new GetTotalCostDto()
             {
-                BaseQuantity = QtyConvert(ingredient.Ingredient.Quantity, ingredient.Ingredient.Unit),
+                BaseQuantity = QtyConvert(ingredient.Ingredient.PurchaseQuantity, ingredient.Ingredient.PurchaseUnit),
 
                 UsedQuantity = QtyConvert(ingredient.Quantity, ingredient.Unit),
 
-                Price = ingredient.Ingredient.Price
+                Price = ingredient.Ingredient.PurchasePrice
             };
             float totalCost = cost.UsedQuantity * (cost.Price / cost.BaseQuantity);
             return totalCost;

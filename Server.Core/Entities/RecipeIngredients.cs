@@ -1,4 +1,5 @@
 ﻿using server.Units;
+using System;
 
 namespace server.Models
 {
@@ -10,5 +11,6 @@ namespace server.Models
         public Recipe Recipe { get; set; }
         public int Quantity { get; set; }
         public UnitEnum Unit { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }
