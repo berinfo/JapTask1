@@ -10,17 +10,17 @@ namespace server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class IngredientController : ControllerBase
+    public class IngredientsController : ControllerBase
     {
         private readonly IIngredientService _ingredientService;
 
-        public IngredientController(IIngredientService ingredientService)
+        public IngredientsController(IIngredientService ingredientService)
         {
             _ingredientService = ingredientService;
         }
 
-        [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetIngredientDto>>>> GetIngredients()
+        [HttpGet]
+        public async Task<IActionResult> Get()
         {
             return Ok(await _ingredientService.GetIngredients());
         }

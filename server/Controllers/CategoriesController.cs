@@ -10,17 +10,17 @@ namespace server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CategoryController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoriesController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
-        [HttpGet("GetAll")]
+        [HttpGet]
       
-        public async Task<ActionResult<ServiceResponse<List<GetCategoryDto>>>> GetCategories()
+        public async Task<IActionResult> Get()
         {
             return Ok(await _categoryService.GetCategories());
         }

@@ -6,6 +6,7 @@ using server.Dtos;
 using server.Models;
 using server.Response;
 using server.Units;
+using Server.Core.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,33 +24,33 @@ namespace server.Services
             _mapper = mapper;
             _context = context;
         }
-        public async Task<ServiceResponse<GetRecipeDto>> GetOneRecipe(int recipeId)
+        public async Task<ServiceResponse<GetRecipeDto>> GetOneRecipe(int id)
         {
-            var serviceResponse = new ServiceResponse<GetRecipeDto>();
-            // include recipeingredients.theninclude vraca propertije ingredienta
-            var dbRecipe = await _context.Recipes.Include(r => r.Category).Include(r => r.RecipeIngredients).ThenInclude(r => r.Ingredient).FirstOrDefaultAsync(r => r.Id == recipeId);
+            var dbRecipe = await _context.Recipes
+                .Include(r => r.Category)
+                .Include(r => r.RecipeIngredients)
+                    .ThenInclude(r => r.Ingredient)
+                .FirstOrDefaultAsync(r => r.Id == id);
             var dbRecipeDto = _mapper.Map<GetRecipeDto>(dbRecipe);
 
-            if (dbRecipe == null)
-            {
-                serviceResponse.Success = false;
-                serviceResponse.Message = "Not found";
-            } else
-            {
-                serviceResponse.Data = dbRecipeDto;
+            //var dbRecipe = await _context.Recipes
+            //    .Include(r => r.Category)
+            //    .Include(r => r.RecipeIngredients)
+            //         .ThenInclude(r => r.Ingredient)
+            //    .Select(x => _mapper.Map<GetRecipeDto>(x))
+            //    .FirstOrDefaultAsync(r => r.Id == id);
 
-            }
-
-            return serviceResponse;
+            return new ServiceResponse<GetRecipeDto>()
+            {
+                Data = dbRecipeDto,
+                Message = dbRecipe == null ? String.Empty : "Not found"
+            };
         }
      
         public async Task<ServiceResponse<GetRecipeDto>> CreateRecipe(CreateRecipeDto newRecipe)
         {
-            var serviceResponse = new ServiceResponse<GetRecipeDto>();
-            try
-            {
-                Recipe recipe = _mapper.Map<Recipe>(newRecipe);
-                _context.Recipes.Add(recipe);
+                var recipe = _mapper.Map<Recipe>(newRecipe);
+                await _context.Recipes.AddAsync(recipe);
                 await _context.SaveChangesAsync();
 
                 var ingredients = new List<RecipeIngredients>();
@@ -66,16 +67,10 @@ namespace server.Services
                 await _context.RecipeIngredients.AddRangeAsync(ingredients);
                 await _context.SaveChangesAsync();
 
-                serviceResponse.Data = _mapper.Map<GetRecipeDto>(recipe);
-                serviceResponse.Success = true;
-            }
-            catch(Exception ex)
+            return new ServiceResponse<GetRecipeDto>()
             {
-                serviceResponse.Success = false;
-                serviceResponse.Message=ex.Message;
-            }
-            
-            return serviceResponse;
+                Data = _mapper.Map<GetRecipeDto>(recipe)
+            };
         }
         public async Task<ServiceResponse<IEnumerable<GetRecipeByCategoryDto>>> GetRecipesByCategory(int categoryId)
         {
@@ -96,7 +91,7 @@ namespace server.Services
             {
                 Id = r.Id,
                 Name =r.Name,
-                TotalCost = RecipeTotalCost(r)
+                TotalCost = Calculator.RecipeTotalCost(r)
             });
                 
             serviceResponse.Data = recipesToReturn;
@@ -106,10 +101,6 @@ namespace server.Services
         }
         public async Task<ServiceResponse<List<GetRecipeDto>>> SearchRecipes(int categoryId, string word)
         {
-            var serviceResponse = new ServiceResponse<List<GetRecipeDto>>();
-
-            //   var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == categoryId );
-            //  serviceResponse.Data = category;
             var dbRecipes = await _context.Recipes
                 .Include(i => i.RecipeIngredients)
                 .ThenInclude(r => r.Ingredient)
@@ -117,67 +108,15 @@ namespace server.Services
                // .Where(r => r.Name == word)
                 .Where(r => r.Name.Contains(word) || r.Description.Contains(word) || r.RecipeIngredients.Any(reci => reci.Ingredient.Name.Contains(word)))
                 .ToListAsync();
+
             var recipesToReturn = dbRecipes.Select(c => _mapper.Map<GetRecipeDto>(c)).ToList();
-            serviceResponse.Data = recipesToReturn;
-            return serviceResponse;
-        }
 
-        private float QtyConvert(float qty, UnitEnum unit)
-
-        {
-
-            var convertedQty = qty / 1000;
-
-            if (unit == UnitEnum.g) return convertedQty;
-            
-            if (unit == UnitEnum.ml) return convertedQty;
-
-            return qty;
-        }
-        private float RecipeTotalCost(Recipe recipe)
-
-        {
-            var cost = recipe.RecipeIngredients.Select(i => new GetTotalCostDto
-
+            return new ServiceResponse<List<GetRecipeDto>>()
             {
-                BaseQuantity = QtyConvert(i.Ingredient.PurchaseQuantity, i.Ingredient.PurchaseUnit),
-
-                UsedQuantity = QtyConvert(i.Quantity, i.Unit),
-
-                Price = i.Ingredient.PurchasePrice
-
-            });
-
-            float totalCost = cost.Sum(c => c.UsedQuantity * (c.Price / c.BaseQuantity));
-
-            return totalCost;
-        }
-        private float IngredientTotalCost(RecipeIngredients ingredient)
-        {
-            var cost = new GetTotalCostDto()
-            {
-                BaseQuantity = QtyConvert(ingredient.Ingredient.PurchaseQuantity, ingredient.Ingredient.PurchaseUnit),
-
-                UsedQuantity = QtyConvert(ingredient.Quantity, ingredient.Unit),
-
-                Price = ingredient.Ingredient.PurchasePrice
+                Data = recipesToReturn
             };
-            float totalCost = cost.UsedQuantity * (cost.Price / cost.BaseQuantity);
-            return totalCost;
         }
+        
 
-        //private async Task Calculate(GetRecipeDto recipeDto)
-        //{
-        //    for (int i = 0; i < recipeDto.RecipeIngredients.Count; i++)
-        //    {
-        //        var oneIngredient = await _context.Ingredients.FirstOrDefaultAsync(oi => oi.Id == recipeDto.RecipeIngredients[i].IngredientId);
-        //        var getIngProperties = _mapper.Map<GetIngredientDto>(oneIngredient);
-        //        recipeDto.RecipeIngredients[i].Ingredient = getIngProperties;
-        //        var priceBase = recipeDto.RecipeIngredients[i].Ingredient.Price;
-        //        var quantBase = recipeDto.RecipeIngredients[i].Ingredient.Quantity;
-        //        var baseCost = priceBase / quantBase;
-        //    }
-
-        //}
     }
 }

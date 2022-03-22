@@ -15,7 +15,6 @@ namespace server.Services
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
-
         public IngredientService(IMapper mapper, DataContext context)
         {
             _mapper = mapper;
@@ -23,10 +22,14 @@ namespace server.Services
         }
         public async Task<ServiceResponse<List<GetIngredientDto>>> GetIngredients()
         {
-            var serviceResponse = new ServiceResponse<List<GetIngredientDto>>();
-            var dbIngredients = await _context.Ingredients.ToListAsync();
-            serviceResponse.Data = dbIngredients.Select(c => _mapper.Map<GetIngredientDto>(c)).ToList();
-            return serviceResponse;
+            var dbIngredients = await _context.Ingredients
+                .Select(c => _mapper.Map<GetIngredientDto>(c))
+                .ToListAsync();
+
+            return new ServiceResponse<List<GetIngredientDto>>()
+            {
+                Data = dbIngredients
+            };
         }
     }
 }

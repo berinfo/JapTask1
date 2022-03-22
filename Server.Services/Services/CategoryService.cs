@@ -11,12 +11,10 @@ using System.Threading.Tasks;
 
 namespace server.Services
 {
-    public class CategoryService : ICategoryService
-        
+    public class CategoryService : ICategoryService    
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
-
         public CategoryService(IMapper mapper, DataContext context)
         {
             _mapper = mapper;
@@ -24,14 +22,15 @@ namespace server.Services
         }
         public async Task<ServiceResponse<List<GetCategoryDto>>> GetCategories()
         {
-            var serviceResponse = new ServiceResponse<List<GetCategoryDto>>();
-            var dbCategories = await _context.Categories.OrderByDescending(r => r.CreatedAt).Select(c => _mapper.Map<GetCategoryDto>(c)).ToListAsync();
-            // pitati zasto ne moze u gornjem redu order zbog to list list async
-            //  serviceResponse.Data = dbCategories.OrderByDescending(r => r.CreatedAt).ToList();
-        
-            serviceResponse.Data = dbCategories;
-          
-            return serviceResponse; 
+            var dbCategories = await _context.Categories
+                .OrderByDescending(r => r.CreatedAt)
+                .Select(c => _mapper.Map<GetCategoryDto>(c))
+                .ToListAsync();
+
+            return new ServiceResponse<List<GetCategoryDto>>()
+            {
+                Data = dbCategories
+            };
         }
     }
 }

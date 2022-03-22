@@ -9,3 +9,4 @@ C:\Users\BERINFO\JapTask1\Server.Common\obj\Debug\net5.0\Server.Common.csproj.Co
 C:\Users\BERINFO\JapTask1\Server.Common\obj\Debug\net5.0\Server.Common.dll
 C:\Users\BERINFO\JapTask1\Server.Common\obj\Debug\net5.0\ref\Server.Common.dll
 C:\Users\BERINFO\JapTask1\Server.Common\obj\Debug\net5.0\Server.Common.pdb
+C:\Users\BERINFO\JapTask1\Server.Common\obj\Debug\net5.0\Server.Common.csproj.AssemblyReference.cache
