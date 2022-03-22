@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using server.Data;
+using server.Datas;
 using server.Services;
 using Swashbuckle.AspNetCore.Filters;
 using System;
@@ -50,7 +51,7 @@ namespace server
                 c.OperationFilter<SecurityRequirementsOperationFilter>();
             });
             
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IIngredientService, IngredientService>();
             services.AddScoped<ICategoryService, CategoryService>();

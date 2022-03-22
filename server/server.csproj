@@ -17,4 +17,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="5.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Server.Common\Server.Common.csproj" />
+    <ProjectReference Include="..\Server.Core\Server.Core.csproj" />
+    <ProjectReference Include="..\Server.Database\Server.Database.csproj" />
+    <ProjectReference Include="..\Server.Mapper\Server.Mapper.csproj" />
+    <ProjectReference Include="..\Server.Services\Server.Services.csproj" />
+  </ItemGroup>
+
 </Project>

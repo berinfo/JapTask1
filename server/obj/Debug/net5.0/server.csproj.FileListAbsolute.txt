@@ -73,3 +73,13 @@ C:\Users\BERINFO\JapTask1\server\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
 C:\Users\BERINFO\JapTask1\server\bin\Debug\net5.0\Scrutor.dll
 C:\Users\BERINFO\JapTask1\server\bin\Debug\net5.0\Swashbuckle.AspNetCore.Annotations.dll
 C:\Users\BERINFO\JapTask1\server\bin\Debug\net5.0\Swashbuckle.AspNetCore.Filters.dll
+C:\Users\BERINFO\JapTask1\server\bin\Debug\net5.0\Server.Common.dll
+C:\Users\BERINFO\JapTask1\server\bin\Debug\net5.0\Server.Core.dll
+C:\Users\BERINFO\JapTask1\server\bin\Debug\net5.0\Server.Database.dll
+C:\Users\BERINFO\JapTask1\server\bin\Debug\net5.0\Server.Mapper.dll
+C:\Users\BERINFO\JapTask1\server\bin\Debug\net5.0\Server.Services.dll
+C:\Users\BERINFO\JapTask1\server\bin\Debug\net5.0\Server.Common.pdb
+C:\Users\BERINFO\JapTask1\server\bin\Debug\net5.0\Server.Core.pdb
+C:\Users\BERINFO\JapTask1\server\bin\Debug\net5.0\Server.Database.pdb
+C:\Users\BERINFO\JapTask1\server\bin\Debug\net5.0\Server.Mapper.pdb
+C:\Users\BERINFO\JapTask1\server\bin\Debug\net5.0\Server.Services.pdb

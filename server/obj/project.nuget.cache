@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "N0qe812PNL8vpZO7L6smNxMjVfQ0UWXq7yZqAEAYK+Lmw7dGmBsxzvey8jlEDg+5QvJ6tYLQluSWrp+7E9v8tg==",
+  "dgSpecHash": "3qrxOS8U5/gxm8avHWmp0v+zsMFEspt0SMEfQ+2cH3qRS5vlXwm83rWM3qaK+LHUOv3iVySPSlRULwGdXEDl/A==",
   "success": true,
   "projectFilePath": "C:\\Users\\BERINFO\\JapTask1\\server\\server.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\BERINFO\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
+    "C:\\Users\\BERINFO\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\BERINFO\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "C:\\Users\\BERINFO\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\BERINFO\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.2\\microsoft.aspnetcore.authentication.jwtbearer.5.0.2.nupkg.sha512",

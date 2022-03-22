@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net5.0": {
-      "AutoMapper/11.0.0": {
+      "AutoMapper/11.0.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.7.0"
@@ -1855,19 +1855,87 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "Server.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/Server.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Server.Common.dll": {}
+        }
+      },
+      "Server.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Server.Common": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Server.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Server.Core.dll": {}
+        }
+      },
+      "Server.Database/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "5.0.2",
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.2",
+          "Server.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Server.Database.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Server.Database.dll": {}
+        }
+      },
+      "Server.Mapper/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "AutoMapper": "11.0.1",
+          "Server.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Server.Mapper.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Server.Mapper.dll": {}
+        }
+      },
+      "Server.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "AutoMapper": "11.0.1",
+          "Server.Common": "1.0.0",
+          "Server.Core": "1.0.0",
+          "Server.Database": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Server.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Server.Services.dll": {}
+        }
       }
     }
   },
   "libraries": {
-    "AutoMapper/11.0.0": {
-      "sha512": "+596AnKykYCk9RxXCEF4GYuapSebQtFVvIA1oVG1rrRkCLAC7AkWehJ0brCfYUbdDW3v1H/p0W3hob7JoXGjMw==",
+    "AutoMapper/11.0.1": {
+      "sha512": "WIadGC1pIwbnyTubvI577p3F++Bsj9q2Q3OaAc1I0QS+JhupN1xkdrPBhI9bPIeg63zM81tZplUNYkqU1HE5jQ==",
       "type": "package",
-      "path": "automapper/11.0.0",
+      "path": "automapper/11.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "automapper.11.0.0.nupkg.sha512",
+        "automapper.11.0.1.nupkg.sha512",
         "automapper.nuspec",
         "icon.png",
         "lib/netstandard2.1/AutoMapper.dll",
@@ -6542,6 +6610,31 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "Server.Common/1.0.0": {
+      "type": "project",
+      "path": "../Server.Common/Server.Common.csproj",
+      "msbuildProject": "../Server.Common/Server.Common.csproj"
+    },
+    "Server.Core/1.0.0": {
+      "type": "project",
+      "path": "../Server.Core/Server.Core.csproj",
+      "msbuildProject": "../Server.Core/Server.Core.csproj"
+    },
+    "Server.Database/1.0.0": {
+      "type": "project",
+      "path": "../Server.Database/Server.Database.csproj",
+      "msbuildProject": "../Server.Database/Server.Database.csproj"
+    },
+    "Server.Mapper/1.0.0": {
+      "type": "project",
+      "path": "../Server.Mapper/Server.Mapper.csproj",
+      "msbuildProject": "../Server.Mapper/Server.Mapper.csproj"
+    },
+    "Server.Services/1.0.0": {
+      "type": "project",
+      "path": "../Server.Services/Server.Services.csproj",
+      "msbuildProject": "../Server.Services/Server.Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -6551,6 +6644,11 @@
       "Microsoft.AspNetCore.Cors >= 2.2.0",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.2",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.2",
+      "Server.Common >= 1.0.0",
+      "Server.Core >= 1.0.0",
+      "Server.Database >= 1.0.0",
+      "Server.Mapper >= 1.0.0",
+      "Server.Services >= 1.0.0",
       "Swashbuckle.AspNetCore >= 5.6.3",
       "Swashbuckle.AspNetCore.Filters >= 5.0.2"
     ]
@@ -6581,7 +6679,23 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\BERINFO\\JapTask1\\Server.Common\\Server.Common.csproj": {
+              "projectPath": "C:\\Users\\BERINFO\\JapTask1\\Server.Common\\Server.Common.csproj"
+            },
+            "C:\\Users\\BERINFO\\JapTask1\\Server.Core\\Server.Core.csproj": {
+              "projectPath": "C:\\Users\\BERINFO\\JapTask1\\Server.Core\\Server.Core.csproj"
+            },
+            "C:\\Users\\BERINFO\\JapTask1\\Server.Database\\Server.Database.csproj": {
+              "projectPath": "C:\\Users\\BERINFO\\JapTask1\\Server.Database\\Server.Database.csproj"
+            },
+            "C:\\Users\\BERINFO\\JapTask1\\Server.Mapper\\Server.Mapper.csproj": {
+              "projectPath": "C:\\Users\\BERINFO\\JapTask1\\Server.Mapper\\Server.Mapper.csproj"
+            },
+            "C:\\Users\\BERINFO\\JapTask1\\Server.Services\\Server.Services.csproj": {
+              "projectPath": "C:\\Users\\BERINFO\\JapTask1\\Server.Services\\Server.Services.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
