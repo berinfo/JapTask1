@@ -18,7 +18,7 @@ const Categories = () => {
     async function getCategories() {
       //https://localhost:44305/Category/GetAll?skipData=0&limitData=2
       await axios
-        .get(`https://localhost:5001/Category/GetAll`)
+        .get(`https://localhost:5001/Categories`)
 
         .then((res) => {
           dispatch(japActions.setCategories(res.data.data));

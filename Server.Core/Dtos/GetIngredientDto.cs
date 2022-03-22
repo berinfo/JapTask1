@@ -6,10 +6,9 @@ namespace server.Dtos
     {
         public int Id { get; set; }
         public string Name { get; set; }    
-       // public UnitEnumeration UnitEnumeration { get; set; }
-       public string Unit { get; set; }
-        public int Price { get; set; }
-        public int Quantity { get; set; }
+        public string PurchaseUnit { get; set; }
+        public int PurchasePrice { get; set; }
+        public int PurchaseQuantity { get; set; }
 
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using server.Data;
 using server.Datas;
 using server.Extensions;
+using server.Middlewares;
 using server.Services;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -56,10 +57,10 @@ namespace server
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "server v1"));
             }
-
             app.UseHttpsRedirection();
             app.UseRouting();
             app.SetupCors();
+            app.ExceptionHander();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>

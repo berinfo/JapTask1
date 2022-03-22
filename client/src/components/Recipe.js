@@ -32,12 +32,13 @@ const Recipe = () => {
 
   const getDetails = async (rId) => {
     axios
-      .get(`https://localhost:5001/Recipe/${rId}`, {
+      .get(`https://localhost:5001/Recipes/${rId}`, {
         headers: {
           Authorization: `bearer ${token}`,
         },
       })
       .then((res) => {
+        console.log(res);
         dispatch(japActions.setRecipe(res.data.data));
       })
       .catch((err) => {
@@ -68,7 +69,7 @@ const Recipe = () => {
 
         {/* <ListComponent recipeView={recipeView} /> */}
       </Box>
-      <Typography sx={style.recipeHeading}>Total:</Typography>
+      <Typography sx={style.recipeHeading}>Total:{recipe?.price}$</Typography>
     </Box>
   );
 };

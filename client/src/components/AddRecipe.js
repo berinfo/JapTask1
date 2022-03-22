@@ -45,7 +45,7 @@ const AddRecipe = () => {
   }, []);
   async function getIngredients() {
     await axios
-      .get("https://localhost:5001/Ingredient/GetAll")
+      .get("https://localhost:5001/Ingredients")
       .then((res) => {
         dispatch(japActions.setIngredients(res.data.data));
       })
@@ -57,7 +57,7 @@ const AddRecipe = () => {
   async function create(e) {
     e.preventDefault();
     await axios
-      .post("https://localhost:5001/Recipe/AddNew", input, {
+      .post("https://localhost:5001/Recipes", input, {
         headers: {
           Authorization: `bearer ${token}`,
         },

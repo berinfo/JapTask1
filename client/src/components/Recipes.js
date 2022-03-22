@@ -44,7 +44,7 @@ const Recipes = () => {
 
   async function getCategory(id) {
     await axios
-      .get(`https://localhost:5001/Recipe/GetByCategory?categoryId=${id}`, {
+      .get(`https://localhost:5001/Recipes/GetByCategory?categoryId=${id}`, {
         headers: {
           Authorization: `bearer ${token}`,
         },
@@ -61,7 +61,7 @@ const Recipes = () => {
     if (input.length > 1) {
       await axios
         .get(
-          `https://localhost:5001/Recipe/Search?categoryId=${id}&word=${input}`,
+          `https://localhost:5001/Recipes/Search?categoryId=${id}&word=${input}`,
           {
             headers: {
               Authorization: `bearer ${token}`,
@@ -69,7 +69,6 @@ const Recipes = () => {
           }
         )
         .then((res) => {
-          console.log(res.data.data);
           dispatch(japActions.setRecipes(res.data.data));
         })
         .catch((err) => console.log(err));

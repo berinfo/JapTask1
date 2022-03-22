@@ -49,23 +49,23 @@ namespace server.Services
      
         public async Task<ServiceResponse<GetRecipeDto>> CreateRecipe(CreateRecipeDto newRecipe)
         {
-                var recipe = _mapper.Map<Recipe>(newRecipe);
-                await _context.Recipes.AddAsync(recipe);
-                await _context.SaveChangesAsync();
+            var recipe = _mapper.Map<Recipe>(newRecipe);
+            await _context.Recipes.AddAsync(recipe);
+            await _context.SaveChangesAsync();
 
-                var ingredients = new List<RecipeIngredients>();
-                foreach (var ingredient in newRecipe.RecipeIngredients)
+            var ingredients = new List<RecipeIngredients>();
+            foreach (var ingredient in newRecipe.RecipeIngredients)
+            {
+                ingredients.Add(new RecipeIngredients()
                 {
-                    ingredients.Add(new RecipeIngredients()
-                    {
-                        IngredientId = ingredient.IngredientId,
-                        RecipeId = recipe.Id,
-                        Quantity = ingredient.Quantity,
-                        Unit = ingredient.Unit,
-                    });
-                }
-                await _context.RecipeIngredients.AddRangeAsync(ingredients);
-                await _context.SaveChangesAsync();
+                    IngredientId = ingredient.IngredientId,
+                    RecipeId = recipe.Id,
+                    Quantity = ingredient.Quantity,
+                    Unit = ingredient.Unit,
+                });
+            }
+            await _context.RecipeIngredients.AddRangeAsync(ingredients);
+            await _context.SaveChangesAsync();
 
             return new ServiceResponse<GetRecipeDto>()
             {
