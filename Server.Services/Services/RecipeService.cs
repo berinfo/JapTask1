@@ -51,7 +51,7 @@ namespace server.Services
         {
             var recipe = _mapper.Map<Recipe>(newRecipe);
             await _context.Recipes.AddAsync(recipe);
-            await _context.SaveChangesAsync();
+         //   await _context.SaveChangesAsync();
 
             var ingredients = new List<RecipeIngredients>();
             foreach (var ingredient in newRecipe.RecipeIngredients)
@@ -64,7 +64,7 @@ namespace server.Services
                     Unit = ingredient.Unit,
                 });
             }
-            await _context.RecipeIngredients.AddRangeAsync(ingredients);
+          //  await _context.RecipeIngredients.AddRangeAsync(ingredients);
             await _context.SaveChangesAsync();
 
             return new ServiceResponse<GetRecipeDto>()
