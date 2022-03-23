@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace server.Controllers
 {
-   // [Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class RecipesController : ControllerBase
