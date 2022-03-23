@@ -38,7 +38,7 @@ const ListComponent = (props) => {
       <List sx={style.list}>
         {!props.recipeView &&
           props.categories &&
-          props.categories.slice(0, loadCat).map((item) => {
+          props.categories.map((item) => {
             return (
               <ListItem
                 key={item.id}
@@ -68,8 +68,8 @@ const ListComponent = (props) => {
       {!props.recipeView && (
         <Button
           sx={style.btn}
-          disabled={props.categories && props.categories.length < loadCat}
-          onClick={() => setLoadCat((c) => c + 2)}
+          disabled={props.categories && props.categories.length < props.take}
+          onClick={props.onTake}
         >
           more
         </Button>

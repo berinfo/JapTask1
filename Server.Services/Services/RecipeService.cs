@@ -26,27 +26,32 @@ namespace server.Services
         }
         public async Task<ServiceResponse<GetRecipeDto>> GetOneRecipe(int id)
         {
+            var serviceResponse = new ServiceResponse<GetRecipeDto>();
             var dbRecipe = await _context.Recipes
                 .Include(r => r.Category)
                 .Include(r => r.RecipeIngredients)
                     .ThenInclude(r => r.Ingredient)
                 .FirstOrDefaultAsync(r => r.Id == id);
-            var dbRecipeDto = _mapper.Map<GetRecipeDto>(dbRecipe);
 
-            //var dbRecipe = await _context.Recipes
-            //    .Include(r => r.Category)
-            //    .Include(r => r.RecipeIngredients)
-            //         .ThenInclude(r => r.Ingredient)
-            //    .Select(x => _mapper.Map<GetRecipeDto>(x))
-            //    .FirstOrDefaultAsync(r => r.Id == id);
-
-            return new ServiceResponse<GetRecipeDto>()
+            if (dbRecipe != null)
             {
-                Data = dbRecipeDto,
-                Message = dbRecipe == null ? String.Empty : "Not found"
-            };
+                var dbRecipeDto = _mapper.Map<GetRecipeDto>(dbRecipe);
+
+                serviceResponse.Data = new GetRecipeDto
+                {
+                    Id = dbRecipeDto.Id,
+                    Name = dbRecipeDto.Name,
+                    Description = dbRecipeDto.Description,
+                    Price = Calculator.RecipeTotalCost(dbRecipe),
+                    Category = dbRecipeDto.Category,
+                    RecipeIngredients = dbRecipeDto.RecipeIngredients
+                };
+                return serviceResponse;
+            } else
+            {
+                throw new Exception();
+            }  
         }
-     
         public async Task<ServiceResponse<GetRecipeDto>> CreateRecipe(CreateRecipeDto newRecipe)
         {
             var recipe = _mapper.Map<Recipe>(newRecipe);
@@ -74,7 +79,6 @@ namespace server.Services
         }
         public async Task<ServiceResponse<IEnumerable<GetRecipeByCategoryDto>>> GetRecipesByCategory(int categoryId)
         {
-
             var serviceResponse = new ServiceResponse<IEnumerable<GetRecipeByCategoryDto>>();
 
              var dbRecipes = await _context.Recipes
@@ -84,20 +88,24 @@ namespace server.Services
                 .Where(c => c.CategoryId == categoryId)
                 .ToListAsync();
 
-            //var recipesToReturn = dbRecipes
-            //    .Select(c => _mapper.Map<GetRecipeByCategoryDto>(c))
-            //    .ToList();
-            var recipesToReturn = dbRecipes.Select(r => new GetRecipeByCategoryDto
+            if(dbRecipes.Count != 0)
             {
-                Id = r.Id,
-                Name =r.Name,
-                TotalCost = Calculator.RecipeTotalCost(r)
-            });
-                
-            serviceResponse.Data = recipesToReturn;
-            serviceResponse.Success=true;
-          
-            return serviceResponse;
+                var recipesToReturn = dbRecipes.Select(r => new GetRecipeByCategoryDto
+                {
+                    Id = r.Id,
+                    Name = r.Name,
+                    TotalCost = Calculator.RecipeTotalCost(r)
+                });
+
+                serviceResponse.Data = recipesToReturn.OrderBy(r => r.TotalCost).ToList();
+                serviceResponse.Success = true;
+                return serviceResponse;
+            }
+            else
+            {
+                throw new Exception();
+            }
+
         }
         public async Task<ServiceResponse<List<GetRecipeDto>>> SearchRecipes(int categoryId, string word)
         {
@@ -116,7 +124,5 @@ namespace server.Services
                 Data = recipesToReturn
             };
         }
-        
-
     }
 }

@@ -38,7 +38,6 @@ const Recipe = () => {
         },
       })
       .then((res) => {
-        console.log(res);
         dispatch(japActions.setRecipe(res.data.data));
       })
       .catch((err) => {

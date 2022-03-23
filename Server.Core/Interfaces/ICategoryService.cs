@@ -8,6 +8,6 @@ namespace server.Services
 {
     public interface ICategoryService
     {
-        Task<ServiceResponse<List<GetCategoryDto>>> GetCategories();
+        Task<ServiceResponse<List<GetCategoryDto>>> GetCategories(int n);
     }
 }

@@ -20,9 +20,9 @@ namespace server.Controllers
         }
         [HttpGet]
       
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(int n)
         {
-            return Ok(await _categoryService.GetCategories());
+            return Ok(await _categoryService.GetCategories(n));
         }
     }
 }

@@ -20,11 +20,12 @@ namespace server.Services
             _mapper = mapper;
             _context = context; 
         }
-        public async Task<ServiceResponse<List<GetCategoryDto>>> GetCategories()
+        public async Task<ServiceResponse<List<GetCategoryDto>>> GetCategories(int n)
         {
             var dbCategories = await _context.Categories
                 .OrderByDescending(r => r.CreatedAt)
                 .Select(c => _mapper.Map<GetCategoryDto>(c))
+                .Take(n)
                 .ToListAsync();
 
             return new ServiceResponse<List<GetCategoryDto>>()
