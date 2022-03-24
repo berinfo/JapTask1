@@ -6659,9 +6659,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\BERINFO\\JapTask1\\server\\server.csproj",
-      "projectName": "server",
-      "projectPath": "C:\\Users\\BERINFO\\JapTask1\\server\\server.csproj",
+      "projectUniqueName": "C:\\Users\\BERINFO\\JapTask1\\server\\server.Api.csproj",
+      "projectName": "server.Api",
+      "projectPath": "C:\\Users\\BERINFO\\JapTask1\\server\\server.Api.csproj",
       "packagesPath": "C:\\Users\\BERINFO\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\BERINFO\\JapTask1\\server\\obj\\",
       "projectStyle": "PackageReference",
